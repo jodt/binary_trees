@@ -55,8 +55,6 @@ void binary_tree_levelorder(const binary_tree_t *tree, void (*func)(int));
 
 /* prototypes utility functions*/
 void currentLevel(const binary_tree_t *tree, void (*func)(int), int level);
-=======
-
-
+void same_level(int a, int b, const binary_tree_t **first, const binary_tree_t **second);
 
 #endif /* _BINARY_TREES_H_ */
