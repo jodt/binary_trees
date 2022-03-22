@@ -19,6 +19,12 @@ void binary_tree_levelorder(const binary_tree_t *tree, void (*func)(int))
 	}
 }
 
+/**
+ * currentLevel - print nodes at the same level
+ * @tree: pointer to the root node of the tree to traverse
+ * @func: pointer to a function to call for each node
+ * @level: depth of nodes
+ */
 void currentLevel(const binary_tree_t *tree, void (*func)(int), int level)
 {
 	if (tree)
