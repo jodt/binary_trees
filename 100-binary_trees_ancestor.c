@@ -13,6 +13,9 @@ binary_tree_t *binary_trees_ancestor(const binary_tree_t *first,
 	size_t depthFirst = binary_tree_depth(first);
 	size_t depthSecond = binary_tree_depth(second);
 
+	if (!first || !second)
+		return (NULL);
+
 	same_level(depthFirst, depthSecond, &first, &second);
 
 	if (first == second)
