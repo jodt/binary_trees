@@ -7,7 +7,8 @@
  * Return: pointer to the lowest common ancestor node or NULL if not found
  */
 
-binary_tree_t *binary_trees_ancestor(const binary_tree_t *first, const binary_tree_t *second)
+binary_tree_t *binary_trees_ancestor(const binary_tree_t *first,
+				     const binary_tree_t *second)
 {
 	size_t depthFirst = binary_tree_depth(first);
 	size_t depthSecond = binary_tree_depth(second);
@@ -49,7 +50,8 @@ size_t binary_tree_depth(const binary_tree_t *tree)
  * Return: max of a or b
  */
 
-void same_level(int a, int b, const binary_tree_t **first, const binary_tree_t **second)
+void same_level(int a, int b, const binary_tree_t **first,
+		const binary_tree_t **second)
 {
 	if (a == b)
 		return;
