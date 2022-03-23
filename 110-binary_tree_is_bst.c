@@ -12,7 +12,7 @@ int is_bst_helper(const binary_tree_t *tree, int low, int high);
 int binary_tree_is_bst(const binary_tree_t *tree)
 {
 	if (tree == NULL)
-		return (1);
+		return (0);
 	return (is_bst_helper(tree, INT_MIN, INT_MAX));
 }
 
