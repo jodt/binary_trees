@@ -10,8 +10,12 @@ int binary_tree_is_complete(const binary_tree_t *tree)
 {
 	int size_tree;
 
-	size_tree = binary_tree_size(tree);
-	return (iscomplete(tree, 0, size_tree));
+	if (tree)
+	{
+		size_tree = binary_tree_size(tree);
+		return (iscomplete(tree, 0, size_tree));
+	}
+	return (0);
 }
 
 /**
