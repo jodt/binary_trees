@@ -34,7 +34,8 @@ int binary_tree_avlrecursion(binary_tree_t *tree)
 	if (binary_tree_balance(tree) < -1 || binary_tree_balance(tree) > 1)
 		return (0);
 
-	return (binary_tree_avlrecursion(tree->left) && binary_tree_avlrecursion(tree->right));
+	return (binary_tree_avlrecursion(tree->left) &&
+		binary_tree_avlrecursion(tree->right));
 }
 
 /**
