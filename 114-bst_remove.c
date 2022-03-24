@@ -1,5 +1,5 @@
 #include "binary_trees.h"
-bst_t *delete_node(bst_t **node);
+bst_t *delete_node(bst_t *node);
 /**
  * bst_remove - removes a node from a Binary Search Tree
  * @root: pointer to the root node of the tree
@@ -16,11 +16,16 @@ bst_t *bst_remove(bst_t *root, int value)
 	if (node == NULL)
 		return (NULL);
 	if (node->left == NULL && node->right == NULL)
+	{
 		free(node);
+		root = NULL;
+	}
 	else if (node->left && node->right == NULL)
 	{
 		if (!node->parent)
-			root = delete_node(&node);
+		{
+			root = delete_node(node);
+		}
 		else
 		{
 			node->left->parent = node->parent;
@@ -35,7 +40,7 @@ bst_t *bst_remove(bst_t *root, int value)
 	else if (node->left == NULL && node->right)
 	{
 		if (!node->parent)
-			root = delete_node(&node);
+			root = delete_node(node);
 		else
 		{
 			node->right->parent = node->parent;
@@ -101,12 +106,12 @@ bst_t *bst_search(const bst_t *tree, int value)
  *
  * Return: pointer to the new node become root
  */
-bst_t *delete_node(bst_t **node)
+bst_t *delete_node(bst_t *node)
 {
 	bst_t *temp;
 
-	temp = (*node)->left;
+	temp = (node)->left;
 	temp->parent = NULL;
-	free(*node);
+	free(node);
 	return (temp);
 }
