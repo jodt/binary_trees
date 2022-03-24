@@ -105,6 +105,13 @@ bst_t *delete_node(bst_t *node)
 	return (temp);
 }
 
+/**
+ * delete_node_with2childs - delete node with two childs
+ * @node: node to delete
+ * @root: pointer to the root node
+ *
+ * Return: the new root node
+ */
 bst_t *delete_node_with2childs(bst_t *node, bst_t *root)
 {
 	bst_t *temp;
@@ -144,5 +151,5 @@ bst_t *delete_node_with2childs(bst_t *node, bst_t *root)
 	temp->parent->left = NULL, temp->parent = NULL;
 	free(node),
 	    root = temp;
-	return root;
+	return (root);
 }
