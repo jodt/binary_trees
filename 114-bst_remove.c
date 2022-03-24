@@ -1,5 +1,6 @@
 #include "binary_trees.h"
 bst_t *delete_node(bst_t *node);
+bst_t *delete_node_with2childs(bst_t *node, bst_t *root);
 /**
  * bst_remove - removes a node from a Binary Search Tree
  * @root: pointer to the root node of the tree
@@ -10,12 +11,12 @@ bst_t *delete_node(bst_t *node);
  */
 bst_t *bst_remove(bst_t *root, int value)
 {
-	bst_t *node = NULL, *temp;
+	bst_t *node = NULL;
 
 	node = bst_search(root, value);
 
 	if (node == NULL)
-		return (NULL);
+		return (root);
 	if (node->left == NULL && node->right == NULL)
 	{
 		if (node->parent->left && node->parent->left->n == node->n)
@@ -57,23 +58,7 @@ bst_t *bst_remove(bst_t *root, int value)
 	}
 	else
 	{
-		temp = node, temp = temp->right;
-		while (temp->left)
-			temp = temp->left;
-		temp->left = node->left, temp->right = node->right;
-		node->left->parent = temp, node->right->parent = temp;
-		if (node->parent)
-		{
-			temp->parent->left = NULL, temp->parent = node->parent;
-			if (node->parent->left->n == node->n)
-				node->parent->left = temp;
-			else
-				node->parent->right = temp;
-			free(node);
-			return (root);
-		}
-		temp->parent->left = NULL, temp->parent = NULL;
-		free(node), root = temp;
+		root = delete_node_with2childs(node, root);
 	}
 	return (root);
 }
@@ -118,4 +103,53 @@ bst_t *delete_node(bst_t *node)
 	temp->parent = NULL;
 	free(node);
 	return (temp);
+}
+
+/**
+ * delete_node_with2childs - delete node with two childs
+ * @node: node to delete
+ * @root: pointer to the root node
+ *
+ * Return: the new root node
+ */
+bst_t *delete_node_with2childs(bst_t *node, bst_t *root)
+{
+	bst_t *temp;
+
+	temp = node;
+	if (temp->right->left)
+	{
+		temp = temp->right;
+		while (temp->left)
+			temp = temp->left;
+
+		temp->left = node->left, temp->right = node->right;
+		node->left->parent = temp, node->right->parent = temp;
+	}
+	else if (!temp->right->left && temp->right->right)
+	{
+		temp = temp->right;
+		temp->left = node->left;
+		node->left->parent = temp;
+	}
+	else
+	{
+		temp = temp->left;
+		temp->right = node->right;
+		node->right->parent = temp;
+	}
+	if (node->parent)
+	{
+		temp->parent->left = NULL, temp->parent = node->parent;
+		if (node->parent->left && node->parent->left->n == node->n)
+			node->parent->left = temp;
+		else
+			node->parent->right = temp;
+		free(node);
+		return (root);
+	}
+	temp->parent->left = NULL, temp->parent = NULL;
+	free(node),
+	    root = temp;
+	return (root);
 }
