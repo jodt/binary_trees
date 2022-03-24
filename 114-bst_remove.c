@@ -13,12 +13,16 @@ bst_t *bst_remove(bst_t *root, int value)
 	bst_t *node = NULL, *temp;
 
 	node = bst_search(root, value);
+
 	if (node == NULL)
 		return (NULL);
 	if (node->left == NULL && node->right == NULL)
 	{
+		if (node->parent->left->n == node->n)
+			node->parent->left = NULL;
+		else
+			node->parent->right = NULL;
 		free(node);
-		root = NULL;
 	}
 	else if (node->left && node->right == NULL)
 	{
