@@ -1,4 +1,5 @@
 #include "binary_trees.h"
+bst_t *delete_node(bst_t **node);
 /**
  * bst_remove - removes a node from a Binary Search Tree
  * @root: pointer to the root node of the tree
@@ -12,27 +13,38 @@ bst_t *bst_remove(bst_t *root, int value)
 	bst_t *node = NULL, *temp;
 
 	node = bst_search(root, value);
-	if (root == NULL || node == NULL)
+	if (node == NULL)
 		return (NULL);
 	if (node->left == NULL && node->right == NULL)
 		free(node);
 	else if (node->left && node->right == NULL)
 	{
-		node->left->parent = node->parent;
-		if (node->parent->left->n == node->n)
-			node->parent->left = node->left;
+		if (!node->parent)
+			root = delete_node(&node);
 		else
-			node->parent->right = node->left;
-		free(node);
+		{
+			node->left->parent = node->parent;
+
+			if (node->parent->left->n == node->n)
+				node->parent->left = node->left;
+			else
+				node->parent->right = node->left;
+			free(node);
+		}
 	}
 	else if (node->left == NULL && node->right)
 	{
-		node->right->parent = node->parent;
-		if (node->parent->right->n == node->n)
-			node->parent->right = node->right;
+		if (!node->parent)
+			root = delete_node(&node);
 		else
-			node->parent->left = node->right;
-		free(node);
+		{
+			node->right->parent = node->parent;
+			if (node->parent->right->n == node->n)
+				node->parent->right = node->right;
+			else
+				node->parent->left = node->right;
+			free(node);
+		}
 	}
 	else
 	{
@@ -81,4 +93,20 @@ bst_t *bst_search(const bst_t *tree, int value)
 			tree = tree->right;
 	}
 	return (NULL);
+}
+
+/**
+ * delete_node - delete node
+ * @node: node to delete
+ *
+ * Return: pointer to the new node become root
+ */
+bst_t *delete_node(bst_t **node)
+{
+	bst_t *temp;
+
+	temp = (*node)->left;
+	temp->parent = NULL;
+	free(*node);
+	return (temp);
 }
