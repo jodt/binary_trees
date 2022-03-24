@@ -18,7 +18,7 @@ bst_t *bst_remove(bst_t *root, int value)
 		return (NULL);
 	if (node->left == NULL && node->right == NULL)
 	{
-		if (node->parent->left->n == node->n)
+		if (node->parent->left && node->parent->left->n == node->n)
 			node->parent->left = NULL;
 		else
 			node->parent->right = NULL;
